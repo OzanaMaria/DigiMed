@@ -1,0 +1,28 @@
+:root {
+    --light-brown: #edc591;
+    --green: #415e54;
+    --white: #fff;
+}
+
+#register {
+    position: relative;
+}
+
+.btn-link {
+
+    color: var(--white) !important;
+
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.first-display-card {
+    background-color: var(--green);
+    color: var(--white)
+}

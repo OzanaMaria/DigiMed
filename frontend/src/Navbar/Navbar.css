@@ -1,0 +1,13 @@
+:root {
+    --light-brown: #edc591;
+    --green: #415e54;
+}
+
+.nav {
+    background-color: var(--light-brown);
+}
+
+.icons {
+    height: 40px;
+    width: 40px;
+}
