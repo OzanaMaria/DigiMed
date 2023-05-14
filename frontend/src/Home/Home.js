@@ -2,26 +2,37 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
+import Card from 'react-bootstrap/Card';
 import "./Home.css";
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-
+import ListCard from "./Card";
+import teeth from "../images/teeth.png";
+import foot from "../images/foot.jpg";
+import diagnosis from "../images/diagnostic.jpg";
 
 export default function Home() {
+    const cardsInfo = [{ img: teeth, title: "Tratarea dintilor", desc: "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm." },
+    { img: foot, title: "Tratarea oaselor", desc: "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm." },
+    { img: diagnosis, title: "Diagnostice", desc: "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm." },
+    { img: teeth, title: "Cardiologie", desc: "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm." },
+    { img: teeth, title: "Operatii", desc: "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm." },
+    { img: teeth, title: "Ingrijirea ochilor", desc: "Lorem ipsum dolor sit amet consecte tur adipiscing elit semper dalaracc lacus vel facilisis volutpat est velitolm." }]
+    const displayCard = () => cardsInfo.map((item, index) => <ListCard
+        key={index}
+        img={item.img}
+        title={item.title}
+        desc={item.desc}
+    ></ListCard>);
     return (
         <>
-
             <Container>
-                <Row className='first-display-card'>
-                    <Col className='green'>
-                        <Row className='item title'>SdaerDoog</Row>
-                        <Row className='item desc'>You can never get a cup of tea large enough or a book long enough to suit me.</Row>
-                        <Row className='item'><Col className='buttons'> <Link to='/signup'><Button variant="light">Sign Up</Button>  </Link> <Link to='/login'><Button variant="link">Sign In</Button></Link></Col><Col></Col></Row>
-                    </Col>
-                    {/* <Col className='img-container'><Image className="background-img" src={backgroundImg} /></Col> */}
+                <Row className='item title'>Servicii</Row>
+                <Row className='card-list '>
+                    {displayCard()}
                 </Row>
             </Container>
+
         </>
 
     );

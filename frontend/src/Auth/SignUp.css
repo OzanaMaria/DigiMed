@@ -1,7 +1,10 @@
 :root {
     --light-brown: #edc591;
-    --green: #415e54;
+    --green: #007E85;
+    --light-green: #6EAB36;
     --white: #fff;
+    --black: #555555;
+    --grey: #FAFAFA;
 }
 
 #register {
