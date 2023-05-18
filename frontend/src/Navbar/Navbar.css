@@ -8,7 +8,7 @@
 }
 
 .nav {
-    background-color: var(--light-brown);
+    background-color: var(--light-white);
     .nav-link {
         color:var(--green);
         font-weight: 700;

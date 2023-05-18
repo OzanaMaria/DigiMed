@@ -4,12 +4,19 @@
     --light-green: #6EAB36;
     --white: #fff;
     --black: #555555;
-    --grey: #FAFAFA;
+    --grey: #ECECEC;
 }
 
 * {
     font-family: 'Poppins', sans-serif;
 
+}
+
+.background{
+    background-color:var(--grey);
+}
+.container{
+    text-align: center;
 }
 .card-list {
     display: grid;
@@ -18,4 +25,8 @@
     row-gap: 20px;
     column-gap:20px;
     left: 0;
+}
+
+.item-title{
+    text-align: center;
 }
