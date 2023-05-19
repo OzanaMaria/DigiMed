@@ -13,6 +13,13 @@
         color:var(--green);
         font-weight: 700;
     }
+    .nav-link:hover {
+        color:var(--light-green);
+        font-weight: 700;
+
+    }
+    height:50px;
+    
 }
 
 .icons {

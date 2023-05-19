@@ -17,6 +17,7 @@
 }
 .container{
     text-align: center;
+   
 }
 .card-list {
     display: grid;
@@ -25,8 +26,31 @@
     row-gap: 20px;
     column-gap:20px;
     left: 0;
+    color:var(--green);
+    font-weight: 700;
+    .card-text{
+        color:var(--black);
+        font-weight: 500;
+    }
 }
 
+.row{
+    margin-top:10px;
+}
 .item-title{
+   
     text-align: center;
+    color:var(--green);
+    font-weight: 700;
+    font-size:20px;
+}
+
+.card-img{
+  border-radius: 25px;
+  border: 2px solid transparent;
+  padding: 10px;
+}
+
+.card-title{
+    font-weight:700;
 }

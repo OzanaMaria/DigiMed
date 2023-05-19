@@ -38,7 +38,7 @@ function BasicExample() {
     return (
         <Navbar className='nav' >
             <Container >
-                <Navbar.Brand href="/">DigiMed</Navbar.Brand>
+                <Navbar.Brand href="/" style={{ display: "flex", fontWeight: "700", fontSize: "26px" }}><div style={{ color: "#007E85" }}>Digi</div><div style={{ color: "#6EAB36" }}>Med</div></Navbar.Brand>
 
                 {authButton(auth.currentUser)}
 

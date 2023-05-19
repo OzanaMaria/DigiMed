@@ -7,13 +7,33 @@
     --grey: #FAFAFA;
 }
 
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    background: var(--grey);
+}
+.register-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    z-index: 100;
+}
 #register {
     position: relative;
-}
+    background-color: var(--green);
+    color: var(--white);
 
+}
+#register:hover{
+    background-color: var(--light-green)
+}
 .btn-link {
 
-    color: var(--white) !important;
+    color: var(--light-green) !important;
 
 }
 
@@ -23,9 +43,12 @@
     width: 100%;
     justify-content: space-around;
     align-items: center;
+    padding:30px;
 }
 
 .first-display-card {
-    background-color: var(--green);
-    color: var(--white)
+    background-color: var(--white);
+    color: var(--black);
+    width:500px;
+    
 }
