@@ -12,7 +12,7 @@ class Post {
         let mm = d.getMonth() + 1;
         let dd = d.getDate();
 
-        let createdAtDate = `${yyyy}-${mm}-${dd}`
+        let createdAtDate = `${yyyy}-${mm}-${dd}`;
 
         let sql = `
         INSERT INTO posts(
