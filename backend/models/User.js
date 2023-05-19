@@ -6,7 +6,7 @@ class User {
         this.role = role;
     }
 
-    async save() {
+    save() {
 
         let sql = `
         INSERT INTO users(

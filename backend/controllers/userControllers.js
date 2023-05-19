@@ -1,9 +1,8 @@
 const User = require('../models/User');
-const Post = require('../models/User');
 
 exports.getAllUsers = async (req, res, next) => {
     try {
-        const [users, _] = await Post.findAll();
+        const [users, _] = await User.findAll();
 
         res.status(200).json({ users });
     } catch (error) {
@@ -14,9 +13,10 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.createNewUser = async (req, res, next) => {
     try {
+        console.log(req.body);
         let { email, role } = req.body;
         let user = new User(email, role);
-
+        console.log(user);
         user = await user.save();
 
         res.status(201).json({ message: "User created" });

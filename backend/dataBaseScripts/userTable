@@ -4,3 +4,13 @@ CREATE TABLE `digimed`.`users` (
   `role` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+CREATE TABLE `digimed`.`appointment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `pacientId` INT NOT NULL,
+  `doctorId` INT NOT NULL,
+  `date` DATE NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `speciality` VARCHAR(75) NOT NULL,
+  `hospital` VARCHAR(75) NOT NULL,
+  PRIMARY KEY (`id`));
