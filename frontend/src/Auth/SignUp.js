@@ -48,7 +48,7 @@ export default function SignUp() {
                     headers: { "Content-Type": "application/json" }
                 }
             )
-            navigate("/login");
+            navigate("/dashboard");
         } catch (error) {
             setError(error.message);
         }

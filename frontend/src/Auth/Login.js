@@ -31,47 +31,49 @@ export default function Login() {
         setLoading(false);
     }
     return (
-        <Container>
-            <Row className='first-display-card'>
-                <Col className='green'>
-                    <h2 className='text-center mb-4'>Login</h2>
-                    {error && <Alert variant='danger'>{error}</Alert>}
+        <div className='page-container'>
+            <div className="register-container">
+                <Row className='first-display-card'>
+                    <Col className='green'>
+                        <h2 className='text-center mb-4'>Login</h2>
+                        {error && <Alert variant='danger'>{error}</Alert>}
 
-                    <Form className="form-container" onSubmit={handleSubmit}>
-                        <Form.Group id='credentials'>
+                        <Form className="form-container" onSubmit={handleSubmit}>
+                            <Form.Group id='credentials'>
 
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type='email'
-                                ref={emailRef}
-                                required
-                            />
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
+                                    type='email'
+                                    ref={emailRef}
+                                    required
+                                />
 
-                            <Form.Label className='mt-2'>Password</Form.Label>
-                            <Form.Control
-                                type='password'
-                                ref={passwordRef}
-                                required
-                            />
+                                <Form.Label className='mt-2'>Password</Form.Label>
+                                <Form.Control
+                                    type='password'
+                                    ref={passwordRef}
+                                    required
+                                />
 
-                        </Form.Group>
+                            </Form.Group>
 
-                        <Button className='mt-2' id='register'
-                            variant="light"
-                            type='submit'
-                        >
-                            Login
-                        </Button>
-                    </Form>
+                            <Button className='mt-2' id='register'
+                                variant="light"
+                                type='submit'
+                            >
+                                Login
+                            </Button>
+                        </Form>
 
 
-                    <div className='w-100 text-center mt-2' id='login-check'>
-                        Need an account? <Link to='/signup'><Button variant="link">Register</Button></Link>
-                    </div>
-                </Col>
-                {/* <Col className='img-container'><Image className="background-img" src={backgroundImg} /></Col> */}
-            </Row>
 
-        </Container>
+                    </Col>
+                    {/* <Col className='img-container'><Image className="background-img" src={backgroundImg} /></Col> */}
+                </Row>
+                <div className='w-100 text-center mt-2' id='login-check'>
+                    Need an account? <Link to='/signup'><Button variant="link">Register</Button></Link>
+                </div>
+            </div>
+        </div>
     );
 }

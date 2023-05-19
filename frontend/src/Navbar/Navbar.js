@@ -14,9 +14,11 @@ function BasicExample() {
         if (user != null) {
             return (
                 <Nav>
-                    <Nav.Link href="/profile">My profile</Nav.Link>
-                    <Nav.Link href="/books">My books</Nav.Link>
-
+                    <Nav.Link href="/profile">Acasa</Nav.Link>
+                    <Nav.Link href="/books">Medici</Nav.Link>
+                    <Nav.Link href="/books">Contacteaza-ne</Nav.Link>
+                    <Nav.Link href="/books">Ajutor</Nav.Link>
+                    <Nav.Link href="/books">Contul meu</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Log Out</Nav.Link>
                 </Nav>
             );
