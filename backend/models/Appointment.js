@@ -41,7 +41,7 @@ class Appointment {
     }
 
     static findByEmail(email) {
-        let sql = `SELECT * FROM appointment WHERE id IN (SELECT id FROM users WHERE email = '${email}');`;
+        let sql = `SELECT * FROM appointment WHERE pacientId IN (SELECT id FROM users WHERE email = '${email}');`;
 
         return db.execute(sql);
     }

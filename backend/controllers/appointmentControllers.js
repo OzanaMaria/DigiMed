@@ -41,7 +41,7 @@ exports.getAppointmentByEmail = async (req, res, next) => {
         let userEmail = req.params.email;
         let [user, _] = await Appointment.findByEmail(userEmail);
 
-        res.status(200).json({ user: user });
+        res.status(200).json({ appointment: appointment });
     } catch (error) {
         console.log(error);
         next(error);
