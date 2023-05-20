@@ -13,7 +13,12 @@
 }
 
 .background{
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
     background-color:var(--grey);
+    
 }
 .container{
     text-align: center;

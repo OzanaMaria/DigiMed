@@ -49,6 +49,8 @@
 .first-display-card {
     background-color: var(--white);
     color: var(--black);
-    width:500px;
-    
+    width:400px;
+    border-width: 2px;
+    border-style: outset;
+    border-color:  var(--grey);
 }

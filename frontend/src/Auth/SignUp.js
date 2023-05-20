@@ -61,7 +61,7 @@ export default function SignUp() {
             <div className="register-container">
                 <Row className='first-display-card'>
                     <Col className='green'>
-                        <h2 className='text-center mb-4'>Register</h2>
+                        <h2 className='text-center mb-4' style={{ marginTop: "15px" }}>Register</h2>
                         {error && <Alert variant='danger'>{error}</Alert>}
 
                         <Form className="form-container" onSubmit={handleSubmit}>

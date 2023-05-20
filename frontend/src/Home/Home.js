@@ -29,13 +29,13 @@ export default function Home() {
     ></ListCard>);
     return (
         <div className='background'>
-            <Container className='container' style={{ textAlign: "center" }}>
+            <div className='container' style={{ textAlign: "center" }}>
                 <Row style={{ height: '50px' }}></Row>
-                <Row className='item-title'>Servicii</Row>
+                <Row className='item-title' >Servicii</Row>
                 <Row className='card-list '>
                     {displayCard()}
                 </Row>
-            </Container>
+            </div>
 
         </div >
 
