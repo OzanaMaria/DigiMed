@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import "../Auth/SignUp.css";
-import Row from 'react-bootstrap/Row';
+import "./dashboard.css";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Container';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
@@ -9,13 +10,23 @@ export default function Dashboard() {
 
     const onChange = date => {
         setDate(date);
+
     };
 
     return (
         <div className="page-container">
-            <Calendar showWeekNumbers onChange={onChange} value={date} />
-            {/* {console.log(date)}
+            <Container> <Row style={{ fontWeight: "700", color: " #007E85" }}>Programarile mele</Row>
+                <Row className="gol"></Row>
+                <Row className="calendar-container">
+                    <Calendar showWeekNumbers onChange={onChange} value={date} />
+                    {/* {console.log(date)}
             {date.toString()} */}
+                    <Row className="gol"></Row>
+                    <Row className="programari"><div style={{ color: "#D9D9D9", fontSize: "18px", fontWeight: "700" }}>Nu exista programari.</div><div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Adauga o programare</div> </Row>
+                </Row>
+            </Container>
+
+
         </div>
     );
 }

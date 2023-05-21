@@ -1,0 +1,44 @@
+:root {
+    --light-brown: #edc591;
+    --green: #007E85;
+    --light-green: #6EAB36;
+    --white: #fff;
+    --black: #555555;
+    --grey: #FAFAFA;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+
+}
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    background: var(--grey);
+}
+.react-calendar {
+    width:450px;
+}
+.calendar-container{
+    display:flex;
+    justify-content: space-between;
+    width:500px;
+    height:400px;
+    border-radius: 25px;
+    border: 2px solid transparent;
+}
+
+.programari{
+    background-color:var(--white);
+    width:350px;
+    border-radius: 25px;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.gol{
+    background-color:var(--grey);
+}
+

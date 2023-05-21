@@ -14,7 +14,7 @@ function BasicExample() {
         if (user != null) {
             return (
                 <Nav>
-                    <Nav.Link href="/profile">Acasa</Nav.Link>
+                    <Nav.Link href="/dashboard">Acasa</Nav.Link>
                     <Nav.Link href="/books">Medici</Nav.Link>
                     <Nav.Link href="/books">Contacteaza-ne</Nav.Link>
                     <Nav.Link href="/books">Ajutor</Nav.Link>
