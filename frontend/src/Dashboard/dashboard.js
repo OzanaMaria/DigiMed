@@ -15,18 +15,18 @@ export default function Dashboard() {
 
     return (
         <div className="page-container">
-            <Container> <Row style={{ fontWeight: "700", color: " #007E85" }}>Programarile mele</Row>
+            <Container> <Row className="title">Programarile mele</Row>
                 <Row className="gol"></Row>
                 <Row className="calendar-container">
-                    <Calendar showWeekNumbers onChange={onChange} value={date} />
-                    {/* {console.log(date)}
-            {date.toString()} */}
+                    <Calendar onChange={onChange} value={date} />
                     <Row className="gol"></Row>
-                    <Row className="programari"><div style={{ color: "#D9D9D9", fontSize: "18px", fontWeight: "700" }}>Nu exista programari.</div><div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Adauga o programare</div> </Row>
+                    <Row className="programari"><div style={{ color: "#D9D9D9", fontSize: "18px", fontWeight: "700" }}>Nu exista programari.</div><button style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Adauga o programare</button> </Row>
+                </Row>
+                <Row className="gol"></Row>
+                <Row className="programari-recurente-container">
+                    <Row className="programari-recurente"><div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Programari recurente</div> </Row>
                 </Row>
             </Container>
-
-
         </div>
     );
 }
