@@ -1,8 +1,8 @@
 const db = require('../config/db');
 
 class Appointment {
-    constructor(pacientId, doctorId, date, type, speciality, hospital) {
-        this.pacientId = pacientId;
+    constructor(patientId, doctorId, date, type, speciality, hospital) {
+        this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
         this.type = type;
@@ -14,7 +14,7 @@ class Appointment {
 
         let sql = `
         INSERT INTO appointment(
-            pacientId, 
+            patientId,
             doctorId, 
             date, 
             type, 
@@ -22,7 +22,7 @@ class Appointment {
             hospital
         )
         VALUES(
-            '${this.pacientId}',
+            '${this.patientId}',
             '${this.doctorId}',
             '${this.date}',
             '${this.type}',

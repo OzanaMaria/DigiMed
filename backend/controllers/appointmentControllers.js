@@ -14,20 +14,20 @@ exports.getAllAppointments = async (req, res, next) => {
 exports.createNewAppointment = async (req, res, next) => {
     try {
         console.log(req.body);
-        let { pacientId,
+        let { patientId,
             doctorId,
             date,
             type,
             speciality,
             hospital } = req.body;
-        let appointment = new Appointment(pacientId,
+        let appointment = new Appointment(patientId,
             doctorId,
             date,
             type,
             speciality,
             hospital);
         console.log(appointment);
-        appointment = await appointment.save();
+        await appointment.save();
 
         res.status(201).json({ message: "Appointment created" });
     } catch (error) {
