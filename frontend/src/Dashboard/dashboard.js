@@ -12,7 +12,7 @@ import firebase from "../firebase";
 
 export default function Dashboard() {
     const [date, setDate] = useState(new Date());
-    const [result, setResult] = useState();
+    const [result, setResult] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [appointments, setAppointments] = useState();
     const email = firebase.auth().currentUser.email

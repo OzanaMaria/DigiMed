@@ -8,22 +8,42 @@ import axios from "axios";
 
 function StaticExample(props) {
     const email = firebase.auth().currentUser.email;
-    const [result, setResult] = useState();
-
+    const [result, setResult] = useState(0);
+    const [hospital, setHospitals] = useState([]);
+    const [speciality, setSpeciality] = useState([]);
     useEffect(() => {
 
         const url = 'http://localhost:3000/users/' + email;
 
         axios.get(url)
             .then(function (response) {
-                console.log(response.data.user.id);
                 setResult(response.data.user.id)
             })
             .catch(function (error) {
                 console.log(error);
             });
 
+        const url2 = 'http://localhost:3000/extra/hospitals';
+        axios.get(url2)
+            .then(function (response) {
+                console.log(response.data.hospitals);
+                setHospitals(response.data.hospitals)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        const url3 = 'http://localhost:3000/extra/specialities';
+        axios.get(url3)
+            .then(function (response) {
+                console.log(response.data.specialities);
+                setSpeciality(response.data.specialities)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
+
     const [formState, setFormState] = useState(
         {
 
@@ -50,7 +70,7 @@ function StaticExample(props) {
             .catch(function (error) {
                 console.log(error);
             });
-
+        console.log(props.onHide);
     }
     return (
         <div
@@ -75,11 +95,11 @@ function StaticExample(props) {
                             <input name="date" onChange={handleChange} value={formState.date} required />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="patientId">PatientId</label>
-                            <input type="number" name="patientId" onChange={handleChange} value={result} required />
+                            <label htmlFor="patientId">Patient Id</label>
+                            <input type="number" name="patientId" onChange={handleChange} value={formState.patientId} placeholder={result} required />
                         </div>
                         <div className="form-group">
-                            <label type="number" htmlFor="doctorId">doctorId</label>
+                            <label type="number" htmlFor="doctorId">Doctor Id</label>
                             <input
                                 name="doctorId"
                                 onChange={handleChange}
@@ -88,24 +108,28 @@ function StaticExample(props) {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="speciality">speciality</label>
-                            <input
+                            <label htmlFor="speciality">Speciality</label>
+                            <select
                                 name="speciality"
                                 onChange={handleChange}
                                 value={formState.speciality}
                                 required
-                            />
+                            >
+                                {speciality.length > 0 && speciality.map(elem => <option value={elem}>{elem}</option>)}
+
+                            </select>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="hospital">hospital</label>
-                            <input
+                            <label htmlFor="hospital">Hospital</label>
+                            <select
                                 name="hospital"
                                 onChange={handleChange}
                                 value={formState.hospital}
-                                required
-                            />
-                        </div>
+                            >
+                                {hospital.length > 0 && hospital.map(elem => <option value={elem}>{elem}</option>)}
 
+                            </select>
+                        </div>
                         <div className="form-group">
                             <label htmlFor="type">Type</label>
                             <select
