@@ -5,7 +5,7 @@ const appointmentControllers = require("../controllers/appointmentControllers");
 router
     .route("/")
     .get(appointmentControllers.getAllAppointments)
-    .post(appointmentControllers.createNewAppointment);
+    .post(appointmentControllers.createNewAppointments);
 
 router.route("/:email").get(appointmentControllers.getAppointmentByEmail);
 
