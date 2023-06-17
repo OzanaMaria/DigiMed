@@ -7,10 +7,17 @@ CREATE TABLE `digimed`.`users` (
 
 CREATE TABLE `digimed`.`appointment` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `pacientId` INT NOT NULL,
+  `patientId` INT NOT NULL,
   `doctorId` INT NOT NULL,
-  `date` DATE NOT NULL,
+  `date` DATETIME NOT NULL,
   `type` VARCHAR(45) NOT NULL,
   `speciality` VARCHAR(75) NOT NULL,
   `hospital` VARCHAR(75) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `digimed`.`posts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `titlel` VARCHAR(75) NOT NULL,
+  `body` VARCHAR(250) NOT NULL,
+  `created_at` DATE NOT NULL,
   PRIMARY KEY (`id`));
