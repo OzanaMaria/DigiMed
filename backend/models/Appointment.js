@@ -41,8 +41,14 @@ class Appointment {
     }
 
     static findByEmail(email) {
-        let sql = `SELECT * FROM appointment WHERE pacientId IN (SELECT id FROM users WHERE email = '${email}');`;
+        let sql = `SELECT * FROM appointment WHERE patientId IN (SELECT id FROM users WHERE email = '${email}');`;
 
+        return db.execute(sql);
+    }
+
+    static findByEmailAndDate(email, date) {
+        let sql = `SELECT * FROM appointment WHERE patientId IN (SELECT id FROM users WHERE email = '${email}') AND date >= '${date}' AND date < DATE_ADD('${date}', INTERVAL 1 DAY);`;
+        console.log(sql);
         return db.execute(sql);
     }
 

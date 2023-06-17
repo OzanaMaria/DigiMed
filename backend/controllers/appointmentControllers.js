@@ -1,5 +1,6 @@
 const Appointment = require('../models/Appointment');
-const {recurringAppointmentPatterns} = require("../helpers/appointmentHelper");
+const { recurringAppointmentPatterns } = require("../helpers/appointmentHelper");
+const moment = require('moment');
 
 exports.getAllAppointments = async (req, res, next) => {
     try {
@@ -52,30 +53,30 @@ exports.createNewAppointments = async (req, res, next) => {
         switch (type) {
             case recurringAppointmentPatterns.SINGULAR:
                 await createNewAppointment(patientId, doctorId, date, type, speciality, hospital);
-                res.status(201).json({message: "Appointment(s) created"});
+                res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.ANNUALLY:
                 await createNAppointmentsWithIntervalMonths(patientId, doctorId, date, type, speciality, hospital, 5, 12);
-                res.status(201).json({message: "Appointment(s) created"});
+                res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.BIANNUALLY:
                 await createNAppointmentsWithIntervalMonths(patientId, doctorId, date, type, speciality, hospital, 10, 6);
-                res.status(201).json({message: "Appointment(s) created"});
+                res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.QUARTERLY:
                 await createNAppointmentsWithIntervalMonths(patientId, doctorId, date, type, speciality, hospital, 10, 3);
-                res.status(201).json({message: "Appointment(s) created"});
+                res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.BIWEEKLY:
                 await createNAppointmentsWithIntervalDays(patientId, doctorId, date, type, speciality, hospital, 5, 14);
-                res.status(201).json({message: "Appointment(s) created"});
+                res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.WEEKLY:
                 await createNAppointmentsWithIntervalDays(patientId, doctorId, date, type, speciality, hospital, 10, 7);
-                res.status(201).json({message: "Appointment(s) created"});
+                res.status(201).json({ message: "Appointment(s) created" });
                 break;
             default:
-                res.status(402).json({message: "Unknown appointment type"});
+                res.status(402).json({ message: "Unknown appointment type" });
         }
     } catch (error) {
         console.log(error);
@@ -85,12 +86,35 @@ exports.createNewAppointments = async (req, res, next) => {
 
 exports.getAppointmentByEmail = async (req, res, next) => {
     try {
+        console.log("sdaaaaaaaa");
         let userEmail = req.params.email;
-        let [user, _] = await Appointment.findByEmail(userEmail);
+        let [appointment, _] = await Appointment.findByEmail(userEmail);
 
-        res.status(200).json({ appointment: appointment });
+        res.status(200).json({ appointment });
     } catch (error) {
         console.log(error);
         next(error);
     }
+}
+
+exports.getAppointmentByEmailAndDate = async (req, res, next) => {
+    try {
+        console.log("addddddddddddddddddddddddd");
+        let { email, date } = req.body;
+
+        let [appointment, _] = await Appointment.findByEmailAndDate(email, convertDateFormat(date));
+
+        res.status(200).json({ appointment });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+function convertDateFormat(dateString) {
+    const inputFormat = 'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ (z)';
+    const outputFormat = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]';
+    const formattedDate = moment(dateString, inputFormat).format(outputFormat);
+
+    return formattedDate;
 }
