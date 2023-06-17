@@ -4,15 +4,19 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Container';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import axios from "axios";
 
 export default function Dashboard() {
     const [date, setDate] = useState(new Date());
-
+    const [result, setResult] = useState();
     const onChange = date => {
         setDate(date);
+        axios.get('localhost:3000/appointments').then(response => {
+            setResult(response)
+        })
 
     };
-
+    console.log(result);
     return (
         <div className="page-container">
             <Container> <Row className="title">Programarile mele</Row>
