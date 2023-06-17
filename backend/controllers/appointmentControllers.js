@@ -100,7 +100,8 @@ exports.getAppointmentByEmail = async (req, res, next) => {
 exports.getAppointmentByEmailAndDate = async (req, res, next) => {
     try {
         console.log("addddddddddddddddddddddddd");
-        let { email, date } = req.body;
+        let email = req.params.email;
+        let date = req.params.date;
 
         let [appointment, _] = await Appointment.findByEmailAndDate(email, convertDateFormat(date));
 
