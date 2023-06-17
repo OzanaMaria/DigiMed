@@ -8,5 +8,6 @@ router
     .post(appointmentControllers.createNewAppointments);
 
 router.route("/:email").get(appointmentControllers.getAppointmentByEmail);
+router.route("/date/date").get(appointmentControllers.getAppointmentByEmailAndDate);
 
 module.exports = router;
