@@ -53,7 +53,7 @@ exports.createNewAppointments = async (req, res, next) => {
             speciality,
             hospital } = req.body;
 
-        email = await userController.getUserEmailById(patientId)
+        email = patient;
 
         switch (type) {
             case recurringAppointmentPatterns.SINGULAR:

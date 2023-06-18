@@ -72,7 +72,7 @@ export default function Dashboard() {
                 console.log(error);
             });
 
-    }, [user.role]);
+    }, [user != undefined ? user.role : null]);
     console.log(result);
     return (
         <div className="page-container">

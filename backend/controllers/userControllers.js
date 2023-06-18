@@ -38,13 +38,17 @@ exports.getUserByEmail = async (req, res, next) => {
     }
 }
 
-<<<<<<< HEAD
 exports.getUserEmailById = async (id) => {
     try {
         let [email, _] = await User.findEmailById(id);
         return email[0].email;
 
-=======
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 exports.getAllDoctors = async (req, res, next) => {
     try {
         const [doctors, _] = await User.findAllDoctors();
@@ -57,7 +61,6 @@ exports.getAllDoctors = async (req, res, next) => {
         var docs = JSON.parse(JSON.stringify(doc_names));
         console.log(docs);
         res.status(200).json({ docs });
->>>>>>> 984c7cbf8a6394c9b6d9a0cdb5624ddbb158eaed
     } catch (error) {
         console.log(error);
         next(error);
