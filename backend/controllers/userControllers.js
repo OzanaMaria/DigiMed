@@ -37,3 +37,14 @@ exports.getUserByEmail = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.getUserEmailById = async (id) => {
+    try {
+        let [email, _] = await User.findEmailById(id);
+        return email[0].email;
+
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}

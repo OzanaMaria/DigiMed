@@ -34,6 +34,12 @@ class User {
         return db.execute(sql);
     }
 
+    static findEmailById(id) {
+        let sql = `SELECT email FROM users WHERE id = '${id}';`;
+
+        return db.execute(sql);
+    }
+
 }
 
 module.exports = User;
