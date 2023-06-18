@@ -7,6 +7,8 @@ router
     .get(userControllers.getAllUsers)
     .post(userControllers.createNewUser);
 
+router.route("/doctors").get(userControllers.getAllDoctors);
+
 router.route("/:email").get(userControllers.getUserByEmail);
 
 module.exports = router;
