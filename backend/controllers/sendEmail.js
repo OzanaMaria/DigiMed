@@ -6,8 +6,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'digimed1999@gmail.com',
-        pass: 'alabala2023'
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD
     }
 });
 
@@ -16,7 +16,7 @@ router.post('/send-email', (req, res) => {
     const { to, subject, text } = req.body;
 
     const mailOptions = {
-        from: 'digimed1999@gmail.com',
+        from: process.env.EMAIL_ADDRESS,
         to,
         subject,
         text
