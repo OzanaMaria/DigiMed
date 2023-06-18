@@ -12,6 +12,8 @@ function StaticExample(props) {
     const [hospital, setHospitals] = useState([]);
     const [speciality, setSpeciality] = useState([]);
     const [doctor, setDoctor] = useState([]);
+    const [show, setShow] = useState(true);
+
     useEffect(() => {
 
         const url = 'http://localhost:3000/users/' + email;
@@ -68,8 +70,11 @@ function StaticExample(props) {
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
     };
-
-    const handleSubmit = (e) => {
+    const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+    const handleSubmit = async (e) => {
+        setShow(true)
         e.preventDefault();
         console.log(formState);
         axios.post('http://localhost:3000/appointments',
@@ -80,7 +85,9 @@ function StaticExample(props) {
             .catch(function (error) {
                 console.log(error);
             });
-        console.log(props.onHide);
+        setShow(false);
+        await delay(1000);
+        window.location.reload(false);
     }
     return (
         <div
@@ -157,9 +164,14 @@ function StaticExample(props) {
                                 <option value="biweekly">biweekly</option>
                             </select>
                         </div>
-                        <button type="submit" className="btn" onClick={handleSubmit}>
-                            Submit
-                        </button>
+                        {show === true ?
+                            <button type="submit" className="btn" onClick={handleSubmit}>
+                                Submit
+                            </button> :
+                            <Alert variant="success" dismissible>
+                                <Alert.Heading>Oh snap! You got success!</Alert.Heading>
+                            </Alert>
+                        }
                     </form>
                 </Modal.Body>
             </Modal>
