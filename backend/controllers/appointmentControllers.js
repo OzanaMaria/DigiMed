@@ -13,9 +13,9 @@ exports.getAllAppointments = async (req, res, next) => {
     }
 }
 
-createNewAppointment = async (patientId, doctorId, date, type, speciality, hospital) => {
-    let appointment = new Appointment(patientId,
-        doctorId,
+createNewAppointment = async (patient, doctorName, date, type, speciality, hospital) => {
+    let appointment = new Appointment(patient,
+        doctorName,
         date,
         type,
         speciality,
@@ -24,27 +24,27 @@ createNewAppointment = async (patientId, doctorId, date, type, speciality, hospi
     await appointment.save();
 }
 
-createNAppointmentsWithIntervalMonths = async (patientId, doctorId, date, type, speciality, hospital, numberOfAppointments, monthsInterval) => {
+createNAppointmentsWithIntervalMonths = async (patient, doctorName, date, type, speciality, hospital, numberOfAppointments, monthsInterval) => {
     const startingDate = new Date(date);
     for (let i = 0; i < numberOfAppointments; i++) {
         const newDate = new Date(startingDate.setMonth(startingDate.getMonth() + monthsInterval));
-        await createNewAppointment(patientId, doctorId, newDate.toISOString().slice(0, 19).replace('T', ' '), type, speciality, hospital);
+        await createNewAppointment(patient, doctorName, newDate.toISOString().slice(0, 19).replace('T', ' '), type, speciality, hospital);
     }
 }
 
-createNAppointmentsWithIntervalDays = async (patientId, doctorId, date, type, speciality, hospital, numberOfAppointments, daysInterval) => {
+createNAppointmentsWithIntervalDays = async (patient, doctorName, date, type, speciality, hospital, numberOfAppointments, daysInterval) => {
     const startingDate = new Date(date);
     for (let i = 0; i < numberOfAppointments; i++) {
         const newDate = new Date(startingDate.setDate(startingDate.getDate() + daysInterval));
-        await createNewAppointment(patientId, doctorId, newDate.toISOString().slice(0, 19).replace('T', ' '), type, speciality, hospital);
+        await createNewAppointment(patient, doctorName, newDate.toISOString().slice(0, 19).replace('T', ' '), type, speciality, hospital);
     }
 }
 
 exports.createNewAppointments = async (req, res, next) => {
     try {
         console.log(req.body);
-        let { patientId,
-            doctorId,
+        let { patient,
+            doctorName,
             date,
             type,
             speciality,
@@ -52,27 +52,27 @@ exports.createNewAppointments = async (req, res, next) => {
 
         switch (type) {
             case recurringAppointmentPatterns.SINGULAR:
-                await createNewAppointment(patientId, doctorId, date, type, speciality, hospital);
+                await createNewAppointment(patient, doctorName, date, type, speciality, hospital);
                 res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.ANNUALLY:
-                await createNAppointmentsWithIntervalMonths(patientId, doctorId, date, type, speciality, hospital, 5, 12);
+                await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 5, 12);
                 res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.BIANNUALLY:
-                await createNAppointmentsWithIntervalMonths(patientId, doctorId, date, type, speciality, hospital, 10, 6);
+                await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 10, 6);
                 res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.QUARTERLY:
-                await createNAppointmentsWithIntervalMonths(patientId, doctorId, date, type, speciality, hospital, 10, 3);
+                await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 10, 3);
                 res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.BIWEEKLY:
-                await createNAppointmentsWithIntervalDays(patientId, doctorId, date, type, speciality, hospital, 5, 14);
+                await createNAppointmentsWithIntervalDays(patient, doctorName, date, type, speciality, hospital, 5, 14);
                 res.status(201).json({ message: "Appointment(s) created" });
                 break;
             case recurringAppointmentPatterns.WEEKLY:
-                await createNAppointmentsWithIntervalDays(patientId, doctorId, date, type, speciality, hospital, 10, 7);
+                await createNAppointmentsWithIntervalDays(patient, doctorName, date, type, speciality, hospital, 10, 7);
                 res.status(201).json({ message: "Appointment(s) created" });
                 break;
             default:

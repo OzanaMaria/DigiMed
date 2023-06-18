@@ -11,6 +11,7 @@ function StaticExample(props) {
     const [result, setResult] = useState(0);
     const [hospital, setHospitals] = useState([]);
     const [speciality, setSpeciality] = useState([]);
+    const [doctor, setDoctor] = useState([]);
     useEffect(() => {
 
         const url = 'http://localhost:3000/users/' + email;
@@ -42,13 +43,22 @@ function StaticExample(props) {
             .catch(function (error) {
                 console.log(error);
             });
+
+        const doctors = 'http://localhost:3000/users/doctors';
+        axios.get(doctors)
+            .then(function (response) {
+                console.log("doctors are: " + response.data.docs);
+                setDoctor(response.data.docs);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
 
     const [formState, setFormState] = useState(
         {
-
-            "patientId": result,
-            "doctorId": 0,
+            "patient": email,
+            "doctorName": "",
             "date": "",
             "type": "",
             "speciality": "",
@@ -95,17 +105,16 @@ function StaticExample(props) {
                             <input name="date" onChange={handleChange} value={formState.date} required />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="patientId">Patient Id</label>
-                            <input type="number" name="patientId" onChange={handleChange} value={formState.patientId} placeholder={result} required />
-                        </div>
-                        <div className="form-group">
-                            <label type="number" htmlFor="doctorId">Doctor Id</label>
-                            <input
-                                name="doctorId"
+                            <label htmlFor="doctorName">Doctor</label>
+                            <select
+                                name="doctorName"
                                 onChange={handleChange}
-                                value={formState.doctorId}
+                                value={formState.doctorName}
                                 required
-                            />
+                            >
+                                <option value="select">Select Doctor</option>
+                                {doctor.length > 0 && doctor.map(elem => <option value={elem}>{elem}</option>)}
+                            </select>
                         </div>
                         <div className="form-group">
                             <label htmlFor="speciality">Speciality</label>
@@ -115,6 +124,7 @@ function StaticExample(props) {
                                 value={formState.speciality}
                                 required
                             >
+                                <option value="select">Select Speciality</option>
                                 {speciality.length > 0 && speciality.map(elem => <option value={elem}>{elem}</option>)}
 
                             </select>
@@ -126,6 +136,7 @@ function StaticExample(props) {
                                 onChange={handleChange}
                                 value={formState.hospital}
                             >
+                                <option value="select">Select Hospital</option>
                                 {hospital.length > 0 && hospital.map(elem => <option value={elem}>{elem}</option>)}
 
                             </select>

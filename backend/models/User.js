@@ -1,8 +1,10 @@
 const db = require('../config/db');
 
 class User {
-    constructor(email, role) {
+    constructor(email, first_name, last_name, role) {
         this.email = email;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.role = role;
     }
 
@@ -11,10 +13,14 @@ class User {
         let sql = `
         INSERT INTO users(
             email,
+            first_name,
+            last_name,
             role
         )
         VALUES(
             '${this.email}',
+            '${this.first_name}',
+            '${this.last_name}',
             '${this.role}'
         )
         `;
@@ -30,6 +36,18 @@ class User {
 
     static findByEmail(email) {
         let sql = `SELECT * FROM users WHERE email = '${email}';`;
+
+        return db.execute(sql);
+    }
+
+    static findAllDoctors() {
+        let sql = `SELECT * FROM users WHERE role = 'doctor';`;
+
+        return db.execute(sql);
+    }
+
+    static findByName(first_name, last_name) {
+        let sql = `SELECT * FROM users WHERE role = 'doctor' AND first_name = '${first_name}' AND last_name = '${last_name}';`;
 
         return db.execute(sql);
     }
