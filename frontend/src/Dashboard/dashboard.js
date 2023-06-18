@@ -55,9 +55,24 @@ export default function Dashboard() {
                 <Row className="calendar-container">
                     <Calendar onChange={onChange} value={date} />
                     <Row className="gol"></Row>
-                    <Row>
+                    <Row className="programari">
                         {result.length === 0 ?
-                            <div style={{ color: "#D9D9D9", fontSize: "18px", fontWeight: "700" }}>Nu exista programari.</div> : <div>Exista o programare</div>
+                            <Row style={{ color: "#D9D9D9", fontSize: "18px", fontWeight: "700" }}>Nu exista programari.</Row> :
+                            <Row>
+                                <div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700" }}>
+                                    <div>{new Date(result[0].date).toDateString()}</div>
+                                    <div class="verticalLine">
+                                        <div>
+                                            Specialitate: {result[0].speciality}
+                                        </div>
+                                        <div>
+                                            Hospital: {result[0].hospital}
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </Row>
                         }
                         <button onClick={() => setModalOpen(true)} style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Adauga o programare</button>
                         {modalOpen && (
@@ -72,15 +87,24 @@ export default function Dashboard() {
                 </Row>
                 <Row className="gol"></Row>
                 <Row className="programari-recurente-container">
-                    <Row className="programari-recurente">
-                        <div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Programari recurente</div>
+                    <Row className="programari-recurente" style={{ textAlign: "left" }}>
+                        <div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7", marginLeft: "5%" }}>Programari recurente</div>
 
                         {appointments !== undefined && appointments.map(item => {
                             return <div>
-                                <div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Data: {item.date}</div>
-                                <div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Tip: {item.type}</div>
-                                <div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Specialitate: {item.speciality}</div>
-                                <div style={{ color: "#007E85", fontSize: "18px", fontWeight: "700", opacity: "0.7" }}>Spital:{item.hospital}</div>
+                                <div style={{ color: "#007E85", fontSize: "16px", fontWeight: "700", opacity: "0.7", marginLeft: "5%" }}>Data: {new Date(item.date).toDateString()}</div>
+                                <div style={{ color: "#007E85", fontSize: "16px", fontWeight: "700", opacity: "0.7", marginLeft: "5%" }}>Tip: {item.type}</div>
+                                <div style={{ color: "#007E85", fontSize: "16px", fontWeight: "700", opacity: "0.7", marginLeft: "5%" }}>Specialitate: {item.speciality}</div>
+                                <div style={{ color: "#007E85", fontSize: "16px", fontWeight: "700", opacity: "0.7", marginLeft: "5%" }}>Spital:{item.hospital}</div>
+                                <hr
+                                    style={{
+                                        color: '#000000',
+                                        backgroundColor: '#000000',
+                                        height: .2,
+                                        width: "auto",
+                                        borderColor: '#007E85'
+                                    }}
+                                />
                             </div>
 
                         })}
