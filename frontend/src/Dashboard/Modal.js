@@ -8,7 +8,7 @@ import axios from "axios";
 
 function StaticExample(props) {
     const email = firebase.auth().currentUser.email;
-    const [result, setResult] = useState(0);
+    const [user, setResult] = useState();
     const [hospital, setHospitals] = useState([]);
     const [speciality, setSpeciality] = useState([]);
     const [doctor, setDoctor] = useState([]);
@@ -20,7 +20,7 @@ function StaticExample(props) {
 
         axios.get(url)
             .then(function (response) {
-                setResult(response.data.user.id)
+                setResult(response.data.user)
             })
             .catch(function (error) {
                 console.log(error);
@@ -111,6 +111,12 @@ function StaticExample(props) {
                             <label htmlFor="date">Data</label>
                             <input name="date" onChange={handleChange} value={formState.date} required />
                         </div>
+                        {user != undefined && user.role == 'doctor' ? 
+                            <div className="form-group">
+                                <label htmlFor="patient">Patient</label>
+                                <input name="patient" onChange={handleChange} value={formState.patient} required />
+                            </div> : <div></div>
+                        }
                         <div className="form-group">
                             <label htmlFor="doctorName">Doctor</label>
                             <select
