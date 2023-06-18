@@ -97,6 +97,18 @@ exports.getAppointmentByEmail = async (req, res, next) => {
     }
 }
 
+exports.getAppointmentByDocEmail = async (req, res, next) => {
+    try {
+        let userEmail = req.params.email;
+        let [appointment, _] = await Appointment.findDocByEmail(userEmail);
+
+        res.status(200).json({ appointment });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 exports.getAppointmentByEmailAndDate = async (req, res, next) => {
     try {
         console.log("addddddddddddddddddddddddd");
@@ -104,6 +116,20 @@ exports.getAppointmentByEmailAndDate = async (req, res, next) => {
         let date = req.params.date;
 
         let [appointment, _] = await Appointment.findByEmailAndDate(email, convertDateFormat(date));
+
+        res.status(200).json({ appointment });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+exports.getDocAppointments = async (req, res, next) => {
+    try {
+        let email = req.params.email;
+        let date = req.params.date;
+
+        let [appointment, _] = await Appointment.findDocByEmailAndDate(email, convertDateFormat(date));
 
         res.status(200).json({ appointment });
     } catch (error) {
