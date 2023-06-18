@@ -15,10 +15,10 @@ function BasicExample() {
             return (
                 <Nav>
                     <Nav.Link href="/dashboard">Acasa</Nav.Link>
-                    <Nav.Link href="/books">Medici</Nav.Link>
+                    <Nav.Link href="/doctors">Medici</Nav.Link>
                     <Nav.Link href="/books">Contacteaza-ne</Nav.Link>
                     <Nav.Link href="/books">Ajutor</Nav.Link>
-                    <Nav.Link href="/books">Contul meu</Nav.Link>
+                    <Nav.Link href="/profile">Contul meu</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Log Out</Nav.Link>
                 </Nav>
             );

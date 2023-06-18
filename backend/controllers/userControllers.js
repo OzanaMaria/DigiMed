@@ -14,8 +14,8 @@ exports.getAllUsers = async (req, res, next) => {
 exports.createNewUser = async (req, res, next) => {
     try {
         console.log(req.body);
-        let { email, role } = req.body;
-        let user = new User(email, role);
+        let { email, first_name, last_name, role } = req.body;
+        let user = new User(email, first_name, last_name, role);
         console.log(user);
         user = await user.save();
 
@@ -38,11 +38,26 @@ exports.getUserByEmail = async (req, res, next) => {
     }
 }
 
+<<<<<<< HEAD
 exports.getUserEmailById = async (id) => {
     try {
         let [email, _] = await User.findEmailById(id);
         return email[0].email;
 
+=======
+exports.getAllDoctors = async (req, res, next) => {
+    try {
+        const [doctors, _] = await User.findAllDoctors();
+        let doc_names = [];
+        for (let i = 0; i < doctors.length; i++) {
+            console.log(doctors[i]);
+            doc_names.push(doctors[i].first_name + " " + doctors[i].last_name);
+        }
+
+        var docs = JSON.parse(JSON.stringify(doc_names));
+        console.log(docs);
+        res.status(200).json({ docs });
+>>>>>>> 984c7cbf8a6394c9b6d9a0cdb5624ddbb158eaed
     } catch (error) {
         console.log(error);
         next(error);

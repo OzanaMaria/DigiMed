@@ -9,6 +9,8 @@ import "./SignUp.css";
 
 export default function SignUp() {
     const emailRef = useRef();
+    const firstNameRef = useRef();
+    const lastNameRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
     const [error, setError] = useState("");
@@ -40,6 +42,8 @@ export default function SignUp() {
             await signup(emailRef.current.value, passwordRef.current.value);
             const newUser = {
                 email: emailRef.current.value,
+                first_name: firstNameRef.current.value,
+                last_name: lastNameRef.current.value,
                 role: select.show,
             }
             console.log(newUser);
@@ -71,6 +75,18 @@ export default function SignUp() {
                                 <Form.Control
                                     type='email'
                                     ref={emailRef}
+                                    required
+                                />
+                                <Form.Label>First Name</Form.Label>
+                                <Form.Control
+                                    type='first_name'
+                                    ref={firstNameRef}
+                                    required
+                                />
+                                <Form.Label>Last Name</Form.Label>
+                                <Form.Control
+                                    type='last_name'
+                                    ref={lastNameRef}
                                     required
                                 />
                                 <Form.Label className='mt-2'>Roles</Form.Label>

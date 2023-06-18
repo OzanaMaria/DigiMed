@@ -15,8 +15,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
-    background: var(--grey);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
 }
 .react-calendar {
     margin-left: 10%;
@@ -32,8 +35,9 @@
 }
 
 .programari{
-    justify-content: space-between;
-    flex-direction: row;
+    display:flex;
+    align-items:center;
+    justify-content: center;
     background-color:var(--white);
     width:350px;
     border-radius: 25px;
@@ -49,18 +53,35 @@
 
 .title{
     margin-bottom: 5%;
+    margin-top:10%;
     font-weight: 700;
     font-size: 36px;
     color:#007E85;
 }
 
 .programari-recurente-container{
-    margin-top: 5%;
+    margin: 5%;
     flex-direction: column;
-    justify-content: center;
+    justify-content: left;
     width:80vw;
     height:500px;
     border-radius: 25px;
     background: var(--white);
 }
 
+.profil{
+    margin: 2%;
+     width:50vw;
+    height:500px;
+    border-radius: 25px;
+    background: var(--white);
+    display:flex;
+    align-items:center;
+    justify-content: center;
+  
+}
+
+.verticalLine{
+    border-left:  solid var(--green);
+    height:100%;
+}

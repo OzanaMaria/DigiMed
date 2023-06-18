@@ -1,17 +1,21 @@
 const db = require('../config/db');
+const User = require('../models/User');
 
 class Appointment {
-    constructor(patientId, doctorId, date, type, speciality, hospital) {
-        this.patientId = patientId;
-        this.doctorId = doctorId;
+    constructor(patient, doctorName, date, type, speciality, hospital) {
+        this.patient = patient;
+        this.doctorName = doctorName;
         this.date = date;
         this.type = type;
         this.speciality = speciality;
         this.hospital = hospital;
     }
 
-    save() {
+    async save() {
 
+        const doc_name = this.doctorName.split(" ");
+        const [doctor, _] = await User.findByName(doc_name[0], doc_name[1]);
+        const [patient1] = await User.findByEmail(this.patient);
         let sql = `
         INSERT INTO appointment(
             patientId,
@@ -22,8 +26,8 @@ class Appointment {
             hospital
         )
         VALUES(
-            '${this.patientId}',
-            '${this.doctorId}',
+            '${patient1[0].id}',
+            '${doctor[0].id}',
             '${this.date}',
             '${this.type}',
             '${this.speciality}',

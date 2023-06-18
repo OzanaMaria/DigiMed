@@ -5,6 +5,9 @@ import SignUp from "./Auth/SignUp.js";
 import Dashboard from "./Dashboard/dashboard";
 import { AuthProvider } from "./contexts/AuthContexts";
 import Home from "./Home/Home";
+import Profile from "./Dashboard/profile";
+import Doctors from "./Dashboard/doctors";
+
 function App() {
   return (
     <Router>
@@ -15,6 +18,8 @@ function App() {
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/doctors" element={<Doctors />} />
         </Routes>
       </AuthProvider>
     </Router>
