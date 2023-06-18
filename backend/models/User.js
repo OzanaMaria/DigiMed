@@ -40,6 +40,10 @@ class User {
         return db.execute(sql);
     }
 
+    static findEmailById(id) {
+        let sql = `SELECT email FROM users WHERE id = '${id}';`;
+    }
+
     static findAllDoctors() {
         let sql = `SELECT * FROM users WHERE role = 'doctor';`;
 

@@ -1,6 +1,8 @@
 const Appointment = require('../models/Appointment');
 const { recurringAppointmentPatterns } = require("../helpers/appointmentHelper");
 const moment = require('moment');
+const sendEmailControllers = require("../controllers/sendEmail.js");
+const userController = require("../controllers/userControllers");
 
 exports.getAllAppointments = async (req, res, next) => {
     try {
@@ -22,6 +24,7 @@ createNewAppointment = async (patient, doctorName, date, type, speciality, hospi
         hospital);
     console.log(appointment);
     await appointment.save();
+
 }
 
 createNAppointmentsWithIntervalMonths = async (patient, doctorName, date, type, speciality, hospital, numberOfAppointments, monthsInterval) => {
@@ -50,30 +53,38 @@ exports.createNewAppointments = async (req, res, next) => {
             speciality,
             hospital } = req.body;
 
+        email = await userController.getUserEmailById(patientId)
+
         switch (type) {
             case recurringAppointmentPatterns.SINGULAR:
                 await createNewAppointment(patient, doctorName, date, type, speciality, hospital);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.ANNUALLY:
                 await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 5, 12);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.BIANNUALLY:
                 await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 10, 6);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.QUARTERLY:
                 await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 10, 3);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.BIWEEKLY:
                 await createNAppointmentsWithIntervalDays(patient, doctorName, date, type, speciality, hospital, 5, 14);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.WEEKLY:
                 await createNAppointmentsWithIntervalDays(patient, doctorName, date, type, speciality, hospital, 10, 7);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             default:
                 res.status(402).json({ message: "Unknown appointment type" });
