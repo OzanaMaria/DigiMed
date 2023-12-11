@@ -17,6 +17,26 @@ export default function Dashboard() {
     const [appointments, setAppointments] = useState();
     const email = firebase.auth().currentUser.email
 
+    const evaluate = date => {
+        const response = fetch('https://eu.engine.gorules.io/documents/50aa1769-678f-4675-b83d-a8ca09c6c8ba/digimed ', {
+            method: 'POST',
+            headers: {
+                'X-Access-Token': 'kwHGzZGGXV7fHZ1IUL2HZH7R',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                context: {
+                    customer: { country: 'US' },
+                    cart: { totals: 100 },
+                    product: { weight: 15 },
+                },
+            }),
+        });
+
+        const { data } = response.json();
+        console.log(data);
+
+    };
     const onChange = date => {
         setDate(date);
 

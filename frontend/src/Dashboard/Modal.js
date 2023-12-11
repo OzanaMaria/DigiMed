@@ -73,22 +73,41 @@ function StaticExample(props) {
     const delay = ms => new Promise(
         resolve => setTimeout(resolve, ms)
     );
+    // const handleSubmit = async (e) => {
+    //     setShow(true)
+    //     e.preventDefault();
+    //     console.log(formState);
+    //     axios.post('http://localhost:3000/appointments',
+    //         formState)
+    //         .then(function (response) {
+    //             console.log(response);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    //     setShow(false);
+    //     await delay(1000);
+    //     window.location.reload(false);
+    // }
     const handleSubmit = async (e) => {
-        setShow(true)
-        e.preventDefault();
-        console.log(formState);
-        axios.post('http://localhost:3000/appointments',
-            formState)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        setShow(false);
-        await delay(1000);
-        window.location.reload(false);
-    }
+        const response = await fetch('https://eu.engine.gorules.io/documents/50aa1769-678f-4675-b83d-a8ca09c6c8ba/digimed ', {
+            method: 'POST',
+            headers: {
+                'X-Access-Token': 'kwHGzZGGXV7fHZ1IUL2HZH7R',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                context: {
+                    user: { age: 13, gender: "Female" },
+                },
+            }),
+        });
+
+        const { data } = await response.json();
+        console.log("result ", data);
+
+    };
+
     return (
         <div
             className="modal show"
