@@ -6,31 +6,27 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'digimed1999@gmail.com',
-        pass: 'alabala2023'
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD
     }
 });
 
 // Define the email sending route
-router.post('/send-email', (req, res) => {
-    const { to, subject, text } = req.body;
-
+exports.createNewAppointment = async (to, date) => {
+    console.log(to);
     const mailOptions = {
-        from: 'digimed1999@gmail.com',
+        from: process.env.EMAIL_ADDRESS,
         to,
-        subject,
-        text
+        subject: "Thank you for your appointment at DigiMed!",
+        text: "Your appointment has been set for " + date
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log(error);
-            res.status(500).send('Failed to send email.');
         } else {
             console.log('Email sent: ' + info.response);
-            res.status(200).send('Email sent successfully.');
         }
     });
-});
+};
 
-module.exports = router;

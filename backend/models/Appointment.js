@@ -50,8 +50,20 @@ class Appointment {
         return db.execute(sql);
     }
 
+    static findDocByEmail(email) {
+        let sql = `SELECT * FROM appointment WHERE doctorId IN (SELECT id FROM users WHERE email = '${email}');`;
+
+        return db.execute(sql);
+    }
+
     static findByEmailAndDate(email, date) {
         let sql = `SELECT * FROM appointment WHERE patientId IN (SELECT id FROM users WHERE email = '${email}') AND date >= '${date}' AND date < DATE_ADD('${date}', INTERVAL 1 DAY);`;
+        console.log(sql);
+        return db.execute(sql);
+    }
+
+    static findDocByEmailAndDate(email, date) {
+        let sql = `SELECT * FROM appointment WHERE doctorId IN (SELECT id FROM users WHERE email = '${email}') AND date >= '${date}' AND date < DATE_ADD('${date}', INTERVAL 1 DAY);`;
         console.log(sql);
         return db.execute(sql);
     }

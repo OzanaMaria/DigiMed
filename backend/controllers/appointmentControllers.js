@@ -1,6 +1,8 @@
 const Appointment = require('../models/Appointment');
 const { recurringAppointmentPatterns } = require("../helpers/appointmentHelper");
 const moment = require('moment');
+const sendEmailControllers = require("../controllers/sendEmail.js");
+const userController = require("../controllers/userControllers");
 
 exports.getAllAppointments = async (req, res, next) => {
     try {
@@ -22,6 +24,7 @@ createNewAppointment = async (patient, doctorName, date, type, speciality, hospi
         hospital);
     console.log(appointment);
     await appointment.save();
+
 }
 
 createNAppointmentsWithIntervalMonths = async (patient, doctorName, date, type, speciality, hospital, numberOfAppointments, monthsInterval) => {
@@ -50,30 +53,38 @@ exports.createNewAppointments = async (req, res, next) => {
             speciality,
             hospital } = req.body;
 
+        email = patient;
+
         switch (type) {
             case recurringAppointmentPatterns.SINGULAR:
                 await createNewAppointment(patient, doctorName, date, type, speciality, hospital);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.ANNUALLY:
                 await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 5, 12);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.BIANNUALLY:
                 await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 10, 6);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.QUARTERLY:
                 await createNAppointmentsWithIntervalMonths(patient, doctorName, date, type, speciality, hospital, 10, 3);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.BIWEEKLY:
                 await createNAppointmentsWithIntervalDays(patient, doctorName, date, type, speciality, hospital, 5, 14);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             case recurringAppointmentPatterns.WEEKLY:
                 await createNAppointmentsWithIntervalDays(patient, doctorName, date, type, speciality, hospital, 10, 7);
                 res.status(201).json({ message: "Appointment(s) created" });
+                sendEmailControllers.createNewAppointment(email, date);
                 break;
             default:
                 res.status(402).json({ message: "Unknown appointment type" });
@@ -97,6 +108,18 @@ exports.getAppointmentByEmail = async (req, res, next) => {
     }
 }
 
+exports.getAppointmentByDocEmail = async (req, res, next) => {
+    try {
+        let userEmail = req.params.email;
+        let [appointment, _] = await Appointment.findDocByEmail(userEmail);
+
+        res.status(200).json({ appointment });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 exports.getAppointmentByEmailAndDate = async (req, res, next) => {
     try {
         console.log("addddddddddddddddddddddddd");
@@ -104,6 +127,20 @@ exports.getAppointmentByEmailAndDate = async (req, res, next) => {
         let date = req.params.date;
 
         let [appointment, _] = await Appointment.findByEmailAndDate(email, convertDateFormat(date));
+
+        res.status(200).json({ appointment });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+exports.getDocAppointments = async (req, res, next) => {
+    try {
+        let email = req.params.email;
+        let date = req.params.date;
+
+        let [appointment, _] = await Appointment.findDocByEmailAndDate(email, convertDateFormat(date));
 
         res.status(200).json({ appointment });
     } catch (error) {

@@ -38,6 +38,17 @@ exports.getUserByEmail = async (req, res, next) => {
     }
 }
 
+exports.getUserEmailById = async (id) => {
+    try {
+        let [email, _] = await User.findEmailById(id);
+        return email[0].email;
+
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 exports.getAllDoctors = async (req, res, next) => {
     try {
         const [doctors, _] = await User.findAllDoctors();

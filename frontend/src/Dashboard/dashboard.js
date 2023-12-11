@@ -15,6 +15,7 @@ export default function Dashboard() {
     const [result, setResult] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [appointments, setAppointments] = useState();
+    const [user, setUser] = useState();
     const email = firebase.auth().currentUser.email
 
     const evaluate = date => {
@@ -40,7 +41,13 @@ export default function Dashboard() {
     const onChange = date => {
         setDate(date);
 
-        const url = 'http://localhost:3000/appointments/' + date + "/" + email;
+        let url;
+        if (user != undefined && user.role == "doctor") {
+            console.log("intra");
+            url = 'http://localhost:3000/appointments/doc/' + date + "/" + email;
+        } else {
+            url = 'http://localhost:3000/appointments/' + date + "/" + email;
+        }
 
         axios.get(url, {
         })
@@ -56,17 +63,36 @@ export default function Dashboard() {
 
     useEffect(() => {
 
-        const url = 'http://localhost:3000/appointments/' + email;
+        const url1 = 'http://localhost:3000/users/' + email;
+        
+        axios.get(url1)
+            .then(function (response) {
+                console.log(response.data.user);
+                setUser(response.data.user)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
+        let url;
+        if (user != undefined && user.role == "doctor") {
+            console.log("intra");
+            url = 'http://localhost:3000/appointments/doc/' + email;
+        } else {
+            url = 'http://localhost:3000/appointments/' + email;
+        }
+
+        console.log("url este: " + url);
         axios.get(url)
             .then(function (response) {
+                console.log(response);
                 setAppointments(response.data.appointment)
             })
             .catch(function (error) {
                 console.log(error);
             });
 
-    }, []);
+    }, [user != undefined ? user.role : null]);
     console.log(result);
     return (
         <div className="page-container">
