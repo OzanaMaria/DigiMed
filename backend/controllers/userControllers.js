@@ -1,4 +1,16 @@
 const User = require('../models/User');
+import { ZenEngine } from '@gorules/zen-engine';
+import fs from 'fs/promises';
+
+exports.getDecision = async () => {
+    // Example filesystem content, it is up to you how you obtain content
+    const content = await fs.readFile('../config/goRules.json');
+    const engine = new ZenEngine();
+
+    const decision = engine.createDecision(content);
+    const result = await decision.evaluate({ input: 15 });
+    console.log(result);
+};
 
 exports.getAllUsers = async (req, res, next) => {
     try {

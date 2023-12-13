@@ -18,26 +18,6 @@ export default function Dashboard() {
     const [user, setUser] = useState();
     const email = firebase.auth().currentUser.email
 
-    const evaluate = date => {
-        const response = fetch('https://eu.engine.gorules.io/documents/50aa1769-678f-4675-b83d-a8ca09c6c8ba/digimed ', {
-            method: 'POST',
-            headers: {
-                'X-Access-Token': 'kwHGzZGGXV7fHZ1IUL2HZH7R',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                context: {
-                    customer: { country: 'US' },
-                    cart: { totals: 100 },
-                    product: { weight: 15 },
-                },
-            }),
-        });
-
-        const { data } = response.json();
-        console.log(data);
-
-    };
     const onChange = date => {
         setDate(date);
 
@@ -60,23 +40,40 @@ export default function Dashboard() {
             });
 
     };
+    const evaluate = async () => {
+        const response = await fetch('https://eu.engine.gorules.io/documents/50aa1769-678f-4675-b83d-a8ca09c6c8ba/digimed ', {
+            method: 'POST',
+            headers: {
+                'X-Access-Token': 'kwHGzZGGXV7fHZ1IUL2HZH7R',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                context: {
+                    user: { age: 13, gender: "Female" },
+                },
+            }),
+        });
+        console.log("result ", await response.json());
+    }
+
+
 
     useEffect(() => {
 
+        evaluate()
+        let url;
         const url1 = 'http://localhost:3000/users/' + email;
-        
+
         axios.get(url1)
             .then(function (response) {
-                console.log(response.data.user);
                 setUser(response.data.user)
             })
             .catch(function (error) {
                 console.log(error);
             });
 
-        let url;
+
         if (user != undefined && user.role == "doctor") {
-            console.log("intra");
             url = 'http://localhost:3000/appointments/doc/' + email;
         } else {
             url = 'http://localhost:3000/appointments/' + email;
@@ -85,7 +82,6 @@ export default function Dashboard() {
         console.log("url este: " + url);
         axios.get(url)
             .then(function (response) {
-                console.log(response);
                 setAppointments(response.data.appointment)
             })
             .catch(function (error) {
@@ -93,7 +89,7 @@ export default function Dashboard() {
             });
 
     }, [user != undefined ? user.role : null]);
-    console.log(result);
+
     return (
         <div className="page-container">
             <Container> <Row className="title">Programarile mele</Row>

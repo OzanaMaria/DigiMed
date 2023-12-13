@@ -7,6 +7,7 @@ router
     .get(userControllers.getAllUsers)
     .post(userControllers.createNewUser);
 
+router.route("/decision").get(userControllers.getDecision);
 router.route("/doctors").get(userControllers.getAllDoctors);
 
 router.route("/:email").get(userControllers.getUserByEmail);
