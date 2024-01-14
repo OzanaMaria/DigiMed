@@ -14,8 +14,8 @@ exports.getAllUsers = async (req, res, next) => {
 exports.createNewUser = async (req, res, next) => {
     try {
         console.log(req.body);
-        let { email, first_name, last_name, role } = req.body;
-        let user = new User(email, first_name, last_name, role);
+        let { email, first_name, last_name, age, gender, role } = req.body;
+        let user = new User(email, first_name, last_name, age, gender, role);
         console.log(user);
         user = await user.save();
 

@@ -1,10 +1,12 @@
 const db = require('../config/db');
 
 class User {
-    constructor(email, first_name, last_name, role) {
+    constructor(email, first_name, last_name, age, gender, role) {
         this.email = email;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.age = age;
+        this.gender = gender;
         this.role = role;
     }
 
@@ -15,12 +17,16 @@ class User {
             email,
             first_name,
             last_name,
+            age,
+            gender,
             role
         )
         VALUES(
             '${this.email}',
             '${this.first_name}',
             '${this.last_name}',
+            '${this.age}',
+            '${this.gender}',
             '${this.role}'
         )
         `;
