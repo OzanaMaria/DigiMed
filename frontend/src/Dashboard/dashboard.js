@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./dashboard.css";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Container';
+import Toast from 'react-bootstrap/Toast';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Card, Form, Alert } from "react-bootstrap";
@@ -16,7 +17,8 @@ export default function Dashboard() {
     const [modalOpen, setModalOpen] = useState(false);
     const [appointments, setAppointments] = useState();
     const [user, setUser] = useState();
-    const email = firebase.auth().currentUser.email
+    const email = firebase.auth().currentUser.email;
+    const [decision, setDecision] = useState(null);
 
     const onChange = date => {
         setDate(date);
@@ -40,20 +42,27 @@ export default function Dashboard() {
             });
 
     };
+
     const evaluate = async () => {
-        const response = await fetch('https://eu.engine.gorules.io/documents/50aa1769-678f-4675-b83d-a8ca09c6c8ba/digimed ', {
-            method: 'POST',
-            headers: {
-                'X-Access-Token': 'kwHGzZGGXV7fHZ1IUL2HZH7R',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                context: {
-                    user: { age: 13, gender: "Female" },
+        if (user != undefined) {
+            console.log(user.gender);
+            const response = await fetch('https://test-test.gorules.io/api/projects/50aa1769-678f-4675-b83d-a8ca09c6c8ba/evaluate/digimed ', {
+                method: 'POST',
+                headers: {
+                    'X-Access-Token': 'kwHGzZGGXV7fHZ1IUL2HZH7R',
+                    'Content-Type': 'application/json',
                 },
-            }),
-        });
-        console.log("result ", await response.json().result);
+                body: JSON.stringify({
+                    context: {
+                        user: { age: user.age, gender: user.gender },
+                    },
+                }),
+            });
+            const data = await response.json();
+            console.log("result ", data.result);
+            setDecision(data.result);
+        }
+
     }
 
 
@@ -96,7 +105,18 @@ export default function Dashboard() {
                 <Row className="gol"></Row>
                 <Row className="calendar-container">
                     <Calendar onChange={onChange} value={date} />
-                    <Row className="gol"></Row>
+                    <Row className="gol">
+                        {decision !== null ?
+                            <Toast>
+                                <Toast.Header>
+                                    <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                                    <strong className="me-auto">Recomandarea zilei</strong>
+                                    <small>11 mins ago</small>
+                                </Toast.Header>
+                                <Toast.Body>{decision.result}</Toast.Body>
+                            </Toast> : <div></div>
+                        }
+                    </Row>
                     <Row className="programari">
                         {result.length === 0 ?
                             <Row style={{ color: "#D9D9D9", fontSize: "18px", fontWeight: "700" }}>Nu exista programari.</Row> :

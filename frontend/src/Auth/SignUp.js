@@ -47,7 +47,7 @@ export default function SignUp() {
                 first_name: firstNameRef.current.value,
                 last_name: lastNameRef.current.value,
                 role: select.show,
-                gnder: select.gender,
+                gender: select.gender,
                 age: ageRef.current.value
             }
             console.log(newUser);
