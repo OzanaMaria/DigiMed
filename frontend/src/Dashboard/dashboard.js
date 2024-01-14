@@ -53,7 +53,7 @@ export default function Dashboard() {
                 },
             }),
         });
-        console.log("result ", await response.json());
+        console.log("result ", await response.json().result);
     }
 
 

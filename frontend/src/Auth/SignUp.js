@@ -12,6 +12,8 @@ export default function SignUp() {
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const passwordRef = useRef();
+    const ageRef = useRef();
+    const genderRef = useRef();
     const passwordConfirmRef = useRef();
     const [error, setError] = useState("");
     const [select, setInput] = useState("");
@@ -45,6 +47,8 @@ export default function SignUp() {
                 first_name: firstNameRef.current.value,
                 last_name: lastNameRef.current.value,
                 role: select.show,
+                gnder: select.gender,
+                age: ageRef.current.value
             }
             console.log(newUser);
             axios.post('http://localhost:3000/users', newUser,
@@ -106,6 +110,19 @@ export default function SignUp() {
                                 <Form.Control
                                     type='password'
                                     ref={passwordConfirmRef}
+                                    required
+                                />
+                                <Form.Label className='mt-2'>Gender</Form.Label>
+                                <Form.Select required onChange={handleChange} name="gender" >
+                                    <option value="Select">Select option</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="other">Other</option>
+                                </Form.Select>
+                                <Form.Label className='mt-2'>Age</Form.Label>
+                                <Form.Control
+                                    type='number'
+                                    ref={ageRef}
                                     required
                                 />
                             </Form.Group>
