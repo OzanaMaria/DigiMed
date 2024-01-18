@@ -106,7 +106,7 @@ export default function Dashboard() {
                 <Row className="calendar-container">
                     <Calendar onChange={onChange} value={date} />
                     <Row className="gol">
-                        {decision !== null ?
+                        {decision !== null && user.role !== 'doctor' ?
                             <Toast>
                                 <Toast.Header>
                                     <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />

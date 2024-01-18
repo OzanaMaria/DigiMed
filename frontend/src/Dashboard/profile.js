@@ -39,10 +39,10 @@ function Profile() {
 
 
                             <Card.Text className="card-text">Id: {user.id}</Card.Text>
-                            <Card.Text className="card-text">Email: {email}</Card.Text>
+                            <Card.Text className="card-text">Email: test@gmail.com</Card.Text>
                             <Card.Text className="card-text">Rol: {user.role}</Card.Text>
-
-
+                            <Card.Text className="card-text">Varsta: {user.age}</Card.Text>
+                            <Card.Text className="card-text">Gen: {user.gender}</Card.Text>
                         </Card.Body>
                     }
 
